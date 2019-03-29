@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axiuj.springcloud.providerduty.dao.DutyDao">
+    <insert id="add" useGeneratedKeys="true" keyProperty="DutyId"
+            parameterType="com.axiuj.springcloud.model.entity.Duty">
+
+    </insert>
+    <update id="updata">
+
+    </update>
+    <select id="list" resultType="com.axiuj.springcloud.model.entity.Duty">
+        select * from duty;
+    </select>
+    <select id="get" resultType="com.axiuj.springcloud.model.entity.Duty">
+        select * from duty
+        where dutyid=#{DutyId};
+    </select>
+    <delete id="delete" parameterType="Integer">
+
+    </delete>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axiuj.springcloud.providermenus.dao.MenusDao">
+    <insert id="add" useGeneratedKeys="true" keyProperty="MenusId"
+            parameterType="com.axiuj.springcloud.model.entity.Menus">
+        insert into menus(categoryid,categoryname,createstaffid,foodname,price,storeid)
+        values (#{categoryId},#{categoryName},#{createStaffId},#{foodName},#{Price},#{storeId})
+    </insert>
+    <update id="updata">
+        update menus set categoryid=#{CategoryId},categoryname=#{CategoryName},foodname=#{FoodName},price=#{Price}where menusid=#{MenusId}
+    </update>
+    <select id="list" resultType="com.axiuj.springcloud.model.entity.Menus">
+        select * from menus;
+    </select>
+    <select id="get" resultType="com.axiuj.springcloud.model.entity.Menus">
+        select * from menus
+        where menusid=#{MenusId};
+    </select>
+    <update id="delete" parameterType="Integer">
+      update menus set usable=0 where menusid=#{MenusId}
+    </update>
+
+    <select id="findbycategoryid" resultType="com.axiuj.springcloud.model.entity.Menus">
+      select * from menus
+        where categoryid=#{CategoryId} and usable=1;
+    </select>
+
+    <select id="menuslist" resultType="com.axiuj.springcloud.model.entity.Menus">
+        select * from menus
+        where storeid=#{storeid} and usable=1;
+    </select>
+</mapper>

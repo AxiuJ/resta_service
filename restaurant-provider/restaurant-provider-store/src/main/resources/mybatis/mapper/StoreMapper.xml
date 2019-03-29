@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axiuj.springcloud.providerstore.dao.StoreDao">
+    <resultMap id="Store" type="com.axiuj.springcloud.model.entity.Store">
+        <id column="storeid" jdbcType="INTEGER" property="StoreId"/>
+        <result column="storename" jdbcType="VARCHAR" property="StoreName"/>
+        <result column="storeaddress" jdbcType="VARCHAR" property="StoreAddress"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="CreateTime"/>
+    </resultMap>
+    <insert id="add" useGeneratedKeys="true" keyProperty="StoreId"
+            parameterType="com.axiuj.springcloud.model.entity.Store">
+        insert into store(storename,storeaddress,createtime)
+        values(#{StoreName},#{StoreAddress},NOW());
+    </insert>
+    <update id="updata">
+        update store set storename=#{StoreName},storeaddress=#{StoreAddress}
+        where storeid=#{StoreId};
+    </update>
+    <select id="list" resultMap="Store">
+        select * from store;
+    </select>
+    <select id="get" resultType="com.axiuj.springcloud.model.entity.Store">
+        select * from store
+        where storeid=#{storeId};
+    </select>
+    <delete id="delete" parameterType="Integer">
+        delete from store
+        where storeid = #{storeId};
+    </delete>
+</mapper>

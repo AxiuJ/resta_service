@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axiuj.springcloud.providerlogin.dao.StaffDao">
+    <insert id="add" useGeneratedKeys="true" keyProperty="StaffId"
+            parameterType="com.axiuj.springcloud.model.entity.Staff">
+        insert into staff(storeid,storename,createname,createid,dutyid,dutyname,staffname,staffsex,idcardno,contactnumber,username,address)
+        values(#{StoreId},#{StoreName},#{CreateName},#{CreateId},#{DutyId},#{DutyName},#{StaffName},#{StaffSex},#{IdCardNo},#{ContactNumber},#{ContactNumber},#{address});
+    </insert>
+    <update id="updata">
+        update staff
+        <set>
+            <if test="StaffName != null">
+                staffname=#{StaffName},
+            </if>
+            <if test="StaffSex != null">
+                staffsex=#{StaffSex},
+            </if>
+            <if test="ContactNumber != null">
+                contactnumber=#{ContactNumber},
+            </if>
+            <if test="DutyName != null">
+                dutyname=#{DutyName},
+            </if>
+            <if test="DutyId != null">
+                dutyid=#{DutyId},
+            </if>
+            <if test="idCardNo != null">
+                idcardno=#{idCardNo},
+            </if>
+            <if test="address != null">
+                address=#{address},
+            </if>
+            <if test="DutyStatus != null">
+                dutystatus=#{DutyStatus},
+            </if>
+            <if test="StaffId != null">
+                username=#{StaffId},
+            </if>
+        </set>
+        where staffid=#{StaffId};
+    </update>
+    <select id="list" resultType="com.axiuj.springcloud.model.entity.Staff" parameterType="com.axiuj.springcloud.page.PageData">
+        <bind name="search" value="'%' + seach + '%'" />
+        select * from staff
+        where dutystatus=1
+        <if test="search !=null  and search != '' ">
+            and staffname like #{search}
+        </if>
+    </select>
+    <select id="get" resultType="com.axiuj.springcloud.model.entity.Staff">
+        select * from staff
+        where staffid=#{StaffId};
+    </select>
+    <delete id="delete" parameterType="Integer">
+        delete from staff
+        where staffid = #{StaffId};
+    </delete>
+    <select id="search" resultType="com.axiuj.springcloud.model.entity.Staff">
+        select * from staff
+        where 1=1
+        <if test="StaffId !=null  and StaffId != '' ">
+            and staffid=#{StaffId}
+        </if>
+        <if test="UserName !=null  and UserName != '' ">
+            and username=#{UserName}
+        </if>
+        <if test="PassWord !=null  and PassWord != '' ">
+            and password=#{PassWord}
+        </if>
+        <if test="StoreId !=null  and StoreId != '' ">
+            and storeid=#{StoreId}
+        </if>
+        <if test="CreateId !=null  and CreateId != '' ">
+            and createid=#{CreateId}
+        </if>
+        <if test="DutyId !=null  and DutyId != '' ">
+            and dutyid=#{DutyId}
+        </if>
+        <if test="StaffName !=null  and StaffName != '' ">
+            and staffname=#{StaffName}
+        </if>
+        <if test="StaffSex !=null  and StaffSex != '' ">
+            and staffsex=#{StaffSex}
+        </if>
+        <if test="IdCardNo !=null  and IdCardNo != '' ">
+            and idcardno=#{IdCardNo}
+        </if>
+        <if test="ContactNumber !=null  and ContactNumber != '' ">
+            and contactnumber=#{ContactNumber}
+        </if>
+        <if test="CreateTime !=null  and CreateTime != '' ">
+            and createtime=#{CreateTime}
+        </if>
+
+            and dutystatus in (1,2);
+
+    </select>
+
+    <select id="pagelist" resultType="com.axiuj.springcloud.model.entity.Staff" parameterType="com.axiuj.springcloud.page.PageData">
+        <bind name="search" value="'%' + seach + '%'" />
+        select * from staff
+        where dutystatus=1
+        <if test="search !=null  and search != '' ">
+            and staffname like #{search}
+        </if>
+        limit #{current},#{pagesize}
+    </select>
+    <update id="updatausable">
+        update staff set dutystatus=0 where staffid=#{StaffId}
+    </update>
+
+</mapper>

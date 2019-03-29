@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axiuj.springcloud.providerorderform.dao.OrderformDao">
+    <insert id="add" useGeneratedKeys="true" keyProperty="OrderformId"
+            parameterType="com.axiuj.springcloud.model.entity.Orderform">
+      insert into orderform(deskid,storeid,staffname,staffid,price) values (#{DeskId},#{StoreId},#{StaffName},#{StaffId},#{Price})
+    </insert>
+    <update id="updata">
+      update orderform set price=#{Price} where orderformid=#{OrderformId};
+    </update>
+    <select id="list" resultType="com.axiuj.springcloud.model.entity.Orderform">
+        select * from orderform;
+    </select>
+    <select id="get" resultType="com.axiuj.springcloud.model.entity.Orderform">
+        select * from orderform
+        where storeid = #{Storeid}
+    </select>
+    <delete id="delete" parameterType="Integer">
+
+    </delete>
+
+    <select id="init" resultType="com.axiuj.springcloud.model.entity.Orderform">
+        <bind name="search" value="'%' + pagedata.seach + '%'" />
+        select * from orderform
+        where storeid = #{Storeid} and createtime LIKE DATE_FORMAT(NOW(),'%Y-%m-%d%') and status=1
+        <if test="search !=null  and search != '' ">
+            and (deskid like #{search} or orderformid = #{pagedata.seach})
+        </if>
+        limit #{pagedata.current},#{pagedata.pagesize}
+    </select>
+
+    <select id="findbypagesize" resultType="com.axiuj.springcloud.model.entity.Orderform" >
+        <bind name="search" value="'%' + pagedata.seach + '%'" />
+        select orderformid from orderform
+        where storeid = #{Storeid} and createtime LIKE DATE_FORMAT(NOW(),'%Y-%m-%d%') and status=1
+        <if test="search !=null  and search != '' ">
+            and (deskid like #{search} or orderformid = #{pagedata.seach})
+        </if>
+
+    </select>
+
+    <update id="checkout" >
+        update orderform set status=2,settletime=NOW()
+        where orderformid=#{OrderformId}
+    </update>
+
+    <select id="getchartdata" resultType="com.axiuj.springcloud.ChartData.Chartdata">
+      select staffname,DATE_FORMAT(createtime,'%d') as dataname,SUM(price) as total
+      from orderform
+      where createtime LIKE DATE_FORMAT(NOW(),'%Y-%m%') AND `status`=2 AND storeid=#{StoreId}
+      GROUP BY staffname,dataname
+    </select>
+</mapper>

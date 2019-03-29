@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axiuj.springcloud.providercategory.dao.CategoryDao">
+    <insert id="add" useGeneratedKeys="true" keyProperty="CategoryId"
+            parameterType="com.axiuj.springcloud.model.entity.Category">
+      insert into category(categoryname,createstaffid) values(#{CategoryName},#{CreateStaffId});
+    </insert>
+    <update id="updata">
+
+    </update>
+    <select id="list" resultType="com.axiuj.springcloud.model.entity.Category">
+        select * from category where usable = 1;
+    </select>
+    <select id="get" resultType="com.axiuj.springcloud.model.entity.Category">
+        select * from category
+        where categoryid=#{CategoryId} and usable = 1;
+    </select>
+    <update id="delete" parameterType="Integer">
+      update category set usable=0 where categoryid=#{CategoryId};
+    </update>
+
+    <select id="findbyname" resultType="com.axiuj.springcloud.model.entity.Category">
+        select * from category
+        where categoryname=#{CategoryName}
+    </select>
+
+    <update id="updateusble" parameterType="Integer">
+        update category set usable=1 where categoryid=#{CategoryId};
+    </update>
+</mapper>

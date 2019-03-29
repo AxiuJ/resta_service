@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.axiuj.springcloud.providerorderitem.dao.OrderitemDao">
+    <insert id="add" useGeneratedKeys="true"
+            parameterType="java.util.List">
+        insert into orderitem(menusid,orderid,foodname,price,num,totalfee) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.MenusId},#{item.OrderId},#{item.FoodName},#{item.Price},#{item.Num},#{item.Totalfee})
+        </foreach>
+    </insert>
+    <update id="updata">
+
+    </update>
+    <select id="list" resultType="com.axiuj.springcloud.model.entity.Orderitem">
+        select * from orderitem;
+    </select>
+    <select id="get" resultType="com.axiuj.springcloud.model.entity.Orderitem">
+        select * from orderitem
+        where orderitemid=#{OrderitemId};
+    </select>
+    <delete id="delete" parameterType="Integer">
+
+    </delete>
+    <select id="findbyin" resultType="com.axiuj.springcloud.model.entity.Orderitem">
+        select * from orderitem
+        where orderid in
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>;
+    </select>
+
+    <update id="uporders">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update orderitem set num = #{item.Num},totalfee=#{item.Totalfee} where itemid = #{item.ItemId}
+        </foreach>
+    </update>
+</mapper>

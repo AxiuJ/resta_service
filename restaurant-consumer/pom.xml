@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>restaurant</artifactId>
+        <groupId>com.axiuj.springcloud</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <artifactId>restaurant-consumer</artifactId>
+    <modules>
+        <module>restaurant-consumer-staff</module>
+        <module>restaurant-consumer-store</module>
+        <module>restaurant-consumer-duty</module>
+        <module>restaurant-consumer-category</module>
+        <module>restaurant-consumer-menus</module>
+    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-common-util</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency><!-- 自己定义的api -->
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-provider-store-api</artifactId>
+        </dependency>
+        <dependency><!-- 自己定义的api -->
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-orderform-api</artifactId>
+        </dependency>
+        <dependency><!-- 自己定义的api -->
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-provider-orderitem-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-provider-menus-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-provider-category-api</artifactId>
+        </dependency>
+        <dependency><!-- 自己定义的api -->
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-provider-login-api</artifactId>
+
+        </dependency>
+        <dependency><!-- 自己定义的api -->
+            <groupId>com.axiuj.springcloud</groupId>
+            <artifactId>restaurant-provider-duty-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <!-- Ribbon相关 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+</project>
